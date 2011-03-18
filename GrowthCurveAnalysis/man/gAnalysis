@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>R: Analyze a Set of Growth Curves.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body>
+
+<table width="100%" summary="page for gAnalysis"><tr><td>gAnalysis</td><td align="right">R Documentation</td></tr></table>
+
+<h2>Analyze a Set of Growth Curves.</h2>
+
+
+<h3>Description</h3>
+
+<p>Analyze (find the parameters and information for) a set of growth curves chosen by gChoose. 
+</p>
+<p>
+gAnalysis(chosen.wells, control = my.control)
+</p>
+<p>
+
+\itemchosen.wells
+The location of the database folder. Updated by user upon initial download of GCAF functions.
+
+</p>
+<p>
+\itemexport.folder
+The location of a folder for exported <code>gAnalysis</code> spreadsheets from gExport.
+
+</p>
+<p>
+\itemcontrol
+An object of class gControl cotaining control options for gAnalysis and connected functions. See gControl. #link?
+
+</p>
+<p>
+
+</p>
+<p>
+</p>
+<p>
+
+This function can be either edited to easily change defaults or passed options for changing options in single runs. Any new options which are written into the package should be added to the this function to simplify maintenance.
+</p>
+<p>
+The function also makes a list of all the experiments based on the appropriately-named folders in the database folder as specified in <code>gControl$root.folder</code>.
+</p>
+<p>
+When adding new control options, be sure to add to list of outputs!
+</p>
+<p>
+
+</p>
+<p>
+
+\itemg.controlAn object containing all the options listed in the arguments and also a list of date and initials for every experiment in the database as defined by <code></code>. 
+
+</p>
+<p>
+</p>
+<p>
+Goodwin Gibbins
+</p>
+<p>
+Draws on concepts from the Grofit Package, <a href="http://www.jstatsoft.org/v33/i07/paper">http://www.jstatsoft.org/v33/i07/paper</a>
+</p>
+<p>
+GCAF, gAnalysis
+</p>
+<p>
+
+# Contains default settings
+def.control &lt;- gControl()
+</p>
+<p>
+#Or can be updated by user for a specific run.
+my.control &lt;- gControl(num.bs.samp=30, color.by="Media", spar=.3)
+
+</p>
+
+
+</body></html>

@@ -1,0 +1,178 @@
+\documentclass[11pt]{article}
+ 
+\usepackage[small,compact]{titlesec}
+\usepackage[margin=1in,nohead]{geometry}
+\setlength\parskip{0.1in}
+\setlength\parindent{0in}
+ 
+\usepackage[pdftex]{graphicx}
+\usepackage{mdwlist}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{setspace}
+%\usepackage{dingbat}
+ 
+ %\usepackage[T1]{fontenc}
+ %\usepackage[light,math]{iwona}
+
+\usepackage{times}
+
+\newenvironment{example}
+{\ttfamily \footnotesize >}
+{\normalsize \rmfamily}
+
+\newcommand{\inlex}[1]{\ttfamily\small{#1}\rmfamily}
+
+\begin{document}
+ \begin{spacing}{.1}
+\begin{center} \LARGE{Documentation for Growth Curve Analysis Functions}\small{ - Goodwin Gibbins} \end{center}
+
+\hfill Summer 2010
+
+
+ 
+The growth curve analysis functions (aka GCAF) (not yet completed) provide a centralized method for the organization and analysis of measured bacterial growth curves and associated metadata.
+
+The functions are not ready for immediate widespread application; they currently only provide relatively basic analysis of growth curves and their use requires significant user participation and (possibly) error bugging. However, they have been constructed with an eye towards continued development and provide a strong framework for exploration of growth parameters. This document aims to explain the extent of the current functions and provide suggestions for further development.
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+\section{The Vision}
+ 
+The ultimate goal of this project is a web-based pipeline for robust analysis of growth curves to provide biologists with meaningful numerical interpretation of their curves (designated ``parameter''). The web application would also serve as a repository of past curve data/metadata to allow for cross-experiment comparison/analysis.
+ 
+The programming language R has been suggested for implementation of the GCAF since it free and relatively easy to use with web-based analysis. With this in mind, the goal of the initial phase of the project has been to create a distributable pseudo-package in R of the growth curve analysis functions (GCAF).
+ 
+A successful final product would be expected to have the following abilities:
+\begin{itemize}
+\item Be intuitively navigable and usable.
+\item Provide methods for the most commonly requested analysis techniques and allow for addition of other measurements.
+\item Derive measures of a growth curve which are useful to the biologists: that have some biological interpretation, that can successfully/consistently distinguish between different environmental/physical perturbations
+\item Provide opportunity for database-wide analysis to provide a wider view of the effects of changes on growth curves.
+\item Return raw data, derived parameters and visualizations for further analysis.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Using the Growth Curve Analysis Functions}
+At its current stage, the GCAF package is not always intuitive and contains limited error-handling facilities; this section seeks to outline proper techniques for both users and developers and should be used in conjunction with the package help files. The GCAF code is annotated and includes \inlex{\# TODO} and \inlex{\# USER} comments which idicate areas for developers or users to pay special attention to respectively. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Set-Up: Loading the Database and Function files}
+\begin{enumerate}
+\item Acquire the ZIP file containing the database, functions and documentation, unzip, and save locally.
+\item Open GrowthCurveAnalysis folder and the \inlex{gControl.r} file. Change the default \inlex{root.folder=``<some path>''} to the file path for the downloaded database folder in R formatting (i.e. forward slashes).
+
+\begin{example}
+gControl <- function(..., root.folder = ``c:/Users/Documents/GrowthCurves/Database'', ...)
+\end{example}
+
+\item Until GCAF has been made into a package, open the function \inlex{gFunctions.r}, update \inlex{gcaf.folder}, and source the function in R. This will load GCAF functions and allow use of functions (without proper documentation help support).
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Adding an Experiment to the Databases}
+The database is structured around file folders containing information for each experiment (ex: one run in one bioscreen machine) which are uniquely identified by \inlex{Date} and \inlex{Initials}. The experiments are initially described by the raw data and a database information file provided by the user. The current format accepts bioscreen results files (though this could be changed - other formats could be coerced into this, etc) and requires a user-made information file.
+
+To add an experiment to the local database:
+
+\begin{enumerate}
+\item Choose \inlex{Initials} and \inlex{Date} to identify the experiment. If two growth curve experiments were run on the same day, treat as separate experiments and use consecutive dates. April 15, 2010 would be \inlex{20100415}. Initials should be consistent with past experiments (e.x. \inlex{``FYL'', ``LP'', ``ST'', ``KB''}).
+
+\item Create a folder in the local database folder for the new experiment, (e.x. \inlex{``...\textbackslash Database\textbackslash201000415ST''}
+
+\item Copy the bioscreen-style results file to the experiment folder with appropriate naming. e.x. \inlex{``...\textbackslash Database\textbackslash 20100415ST \textbackslash ResultsST20100415.csv''}. (See appendix for formatting).
+
+\item Open the layout file, select cells, copy to a new excel document and save as a .txt file (tab-delimited) with appropriate naming. e.x. \inlex{``...\textbackslash Database\textbackslash Layout\textbackslash LayoutST20100415.txt''} \footnotesize{The copying is because sometimes straight conversion to tab-delimited leaves empty cells. An error-check to remove empty cells would be a good addition.} (See appendix for formatting).
+
+\item Open \inlex{gControl.r} and confirm that the default \inlex{database.columns} vector contains the appropriate meta-information specifications for your experiment. You may need to add a section depending on perterbations (should become centralized in web pipeline).
+
+\item Run \inlex{gPrepareDatabase} to create the bare-bones tab-delimited spreadsheet with \inlex{Intials}, \inlex{Date} and \inlex{Well.Name} (label) filled in. The file will be saved as the iformation file in the experiment folder, e.x. \inlex{``...\textbackslash Database\textbackslash 20100415ST \textbackslash InfoST20100415.csv''}
+
+\item Edit the file in Excel (or similar) and fill in information about each well by translating \inlex{Well.Name} or based on global experiment defaults (such as temperature or media). Naming of meta-information must match other experiments so refer to the appendix (reference) for explanations of naming and sections or other database files (this appendix should also be centralized). Blanks wells or information columns should be left as NA. \footnotesize{Note: The cell-highlighting function in excel is has been useful to visually separate between ``NA'', already entered information and empty wells.}
+
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Analyzing a Set of Growth Curves}
+
+The analysis of growth curves follows a simple path of searching for desired growth curves, analyzing the curves then exporting or displaying the reusulting information. The steps are as follows:
+
+\begin{enumerate}
+\item Create \inlex{matches} and \inlex{not.matches} objects and provide to \inlex{gChoose()}. Refer to documentation for specifications.
+
+\begin{example}
+matches <- list(Media=``CM'', Background=``NRC-1'', Temp=c(``37'', ``NA''))\\
+> not.matches <- list(Date=``20100707'')\\
+> chosen.wells <- gChoose{matches, not.matches}
+\end{example}
+
+\item Run \inlex{gAnalysis} on \inlex{chosen.wells}. \footnotesize{Note: Checking the \inlex{length(chosen.wells)} first is recommended for time estimate}.
+
+\begin{example}
+cm.nrc1.37 <- gAnalysis(chosen.wells)
+\end{example}
+
+\item To summarize the information of the wells analyzed, use \inlex{gSummary(cm.nrc1.37)}. This can be useful for checking that no unwanted wells are in analysis.
+
+\item To view plots of individual wells, use the plot function. See documentation for further options.
+
+\begin{example}
+plot(cm.nrc1.37, 1)\\
+> plot(cm.nrc1.37, ``all'', graph.log = T)
+\end{example}
+
+\item To view the distribution of wells against parameters, use \inlex{gSlice(cm.nrc1.37)}. See documentation for further options.
+
+\item To save a spreadsheet containing meta-information and analyzed parameters, use \inlex{gExport(cm.nrc1.37, name=``cmNRC137'')}.
+
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Adding Parameter Estimator Functions}
+
+One of the strengths of the GCAF framework is that it facilitates easy addition of algorithms for parameter estimates. To add a parameter to \inlex{gAnalysis}:
+
+\begin{enumerate}
+\item Write a function which uses already defined parameters, spline-fitted data, time or derivatives or the raw data and time information to define a numerical parameter. If the function is of appreciable length, save in the \inlex{gFunctions} folder with naming \inlex{gFitXXXXX.r} where the XXX help identify the parameter and add path to \inlex{gFunctions.r}.
+
+\item Open \inlex{gSplineFit.r} and and above the line \inlex{\# USER: ADD PARAMETER ESTIMATE FUNCTIONS HERE}. Also add the parameter to the list of parameters returned by the function.
+
+\item Open \inlex{gControl.r} and add new parameter to end of  \inlex{...parameter.columns=c(...., XXXX)}.
+
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Wishlist}
+\begin{description}
+\item[Develop better parameter estimators] - Currently, parameter estimation is unsuccessful at capturing meaningful biological quantities reliably - often noise, length of experiment, growth the the second phase, etc cloud results. The bulk of further work on this project will probably be directed towards design and implementation of ``smart'' analysis techniques such by using Hill Functions (idea from Alex Ratushny), as has been experimented with in gFitHill (see In Progress folder). Another possibility is to continue to develop the package and streamline the process of adding estimators, providing a vehicle for future parameter developers.
+
+\item[Error Checks]- Depending on the use of these programs as skeletons for further development or a distributable package, error checks will need to be incorporated. One useful one would be for empty cells in layout files.
+
+\item[Expand Database] - Save and use \inlex{gAnalysis} objects to speed up graphing of certain sets of data.
+
+\item[Develop Visualization]- The plotting function has been developed as an aid to the design of parameters and is not completely user-friendly. The plot itself could be enhanced, and other options could be added, such as graphs of distribution of parameters in different sets of curves (with coloring like gSlice, but one graph per parameter), a graph showing all plots using rows of boxes colored based on OD, and basic SVG/Log plots which are missing from the current plot function.
+
+\item[Renaming Variables] - Due to the pace of development of this set of functions, naming is not yet ideal, both of individual functions and variables and of the package itself. Possible advancements include centralizing variables such as \inlex{g.analysis} or \inlex{num.wells}, renaming GCAF itself, renaming Database files to Information files (more accurate since they are only the information piece. This is not a priority but would be a boone for ease of future development. 
+
+\item [Website Design] - Obviously, this project would benefit from work on an online web pipeline for more widespread and organized access to the to-be-developed parameter analysis.
+
+\item[Clean Up] - Clean up and complete this and other documentation files. A list of acceptable info needs to be added to the InfoandParameters file, documentation needs to be edited, and in code comments also need work.
+
+\item[Summary Diagram] - A flow diagram of the functions and their interactions might be useful to users of the GCAF package.
+
+\end{description}
+\end{spacing}
+\end{document}

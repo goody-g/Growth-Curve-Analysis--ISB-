@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>R: Updates Saved gAnalysis Objects</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body>
+
+<table width="100%" summary="page for gUpdateAnalysis"><tr><td>gUpdateAnalysis</td><td align="right">R Documentation</td></tr></table>
+
+<h2>Updates Saved gAnalysis Objects</h2>
+
+
+<h3>Description</h3>
+
+<p>Allows for a database-wide update of saved gAnalysis objects which should be used for quicker analysis of sets of curves.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gUpdateAnalysis(replace.old=FALSE, replace.id="Test", control=gControl())</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>replace.old</code></td>
+<td>
+
+Logical indicating whether to save old gAnalysis file in an Archive folder or write over.
+</td></tr>
+</p>
+<p>
+<tr valign="top"><td><code>replace.id</code></td>
+<td>
+
+A name to append to Analysis for archived <code>gAnalysis</code> class objects, preferably date in YYYYMMDD form.
+</td></tr>
+</p>
+<p>
+<tr valign="top"><td><code>control</code></td>
+<td>
+
+An object of class <code>"gControl"</code> providing options for <code>gSummary</code>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>
+This function has not been integrated into the GCAF pathway yet - ultimately, the saved <code>gAnalysis</code> objects would be searched and used for analysis such as <code>gSlice</code> rather than performing <code>gAnalysis</code> again.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Goodwin Gibbins</p>
+
+
+<h3>References</h3>
+
+<p>Draws on the Grofit Package, <a href="http://www.jstatsoft.org/v33/i07/paper">http://www.jstatsoft.org/v33/i07/paper</a></p>
+
+
+<h3>See Also</h3>
+
+<p>GCAF, gAnalysis</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+#gUpdateAnalysis() #This takes A LONG TIME to run, as it performs gAnalysis on every curve in the database.
+</pre>
+
+
+</body></html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>R: Export gAnalysis Objects</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body>
+
+<table width="100%" summary="page for gExport"><tr><td>gExport</td><td align="right">R Documentation</td></tr></table>
+
+<h2>Export gAnalysis Objects</h2>
+
+
+<h3>Description</h3>
+
+<p>Exports analyzed growth curve data for further analysis outside of GCAF.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gExport(g.analysis, name="CMura3")</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>g.analysis</code></td>
+<td>
+
+An object or list of objects of class gAnalysis to export.
+</td></tr>
+</p>
+<p>
+<tr valign="top"><td><code>name</code></td>
+<td>
+
+A character vector consisting of a name for the exported analysis. Default is "LastExport".
+</td></tr>
+</p>
+<p>
+<tr valign="top"><td><code>control</code></td>
+<td>
+
+An object of class <code>"gControl"</code> providing options for <code>gExport</code>, specifically the designated export folder.
+</td></tr>
+</p>
+<p>
+</table>
+
+
+<h3>Details</h3>
+
+<p>
+This function provides a connection between the GCAF functions and other external analysis techniques. Exporting in a versitile the derived parameters for chosen wells is an important ability of the GCAF functions.
+</p>
+
+
+<h3>Value</h3>
+
+<p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>LastExport.txt</code></td>
+<td>
+An exported spreadsheet containing metainformation and parameters for each curve included in the <code>g.analysis</code> input.</td></tr> 
+</table>
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Goodwin Gibbins</p>
+
+
+<h3>References</h3>
+
+<p>Draws on the Grofit Package, <a href="http://www.jstatsoft.org/v33/i07/paper">http://www.jstatsoft.org/v33/i07/paper</a></p>
+
+
+<h3>See Also</h3>
+
+<p>GCAF, gAnalysis</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+#Prepare gAnalysis 
+matchesCDM &lt;- list(Media="CDM", Overexpression=NA, Background="NRC-1")
+chosen.wells.CDM &lt;- gChoose(matchesCDM)
+#g.analysis.cdm &lt;- gAnalysis(chosen.wells.CDM) # takes a while to run.
+
+matchesCM &lt;- list(Media="CM", Overexpression=NA, Background="NRC-1")
+chosen.wells.CM &lt;- gChoose(matchesCM)
+#g.analysis.cm &lt;- gAnalysis(chosen.wells.CM)  # takes a while to run.
+
+# Export both the analyzed sets
+#gExport(list(g.analysis.cdm, g.analysis.cm))
+
+</pre>
+
+
+</body></html>

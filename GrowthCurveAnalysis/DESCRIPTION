@@ -1,0 +1,11 @@
+Package: GrowthCurveAnalysis
+Type: Package
+Title: Growth Curve Analysis package
+Version: 0.0.1
+Date: 2010-10-20
+Author: Goodwin Gibbins, Institute for Systems Biology
+Maintainer: David J Reiss <dreiss@systemsbiology.org>, Goodwin Gibbins <goodwin.gibbins@gmail.com>
+Description: Growth Curve analysis package
+License: GNU General Public License, version 2
+LazyLoad: yes
+Suggests: grid, RSVGTipsDevice

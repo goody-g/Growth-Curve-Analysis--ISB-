@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>R: Plot gAnalysis Objects</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body>
+
+<table width="100%" summary="page for plot.gAnalysis"><tr><td>plot.gAnalysis</td><td align="right">R Documentation</td></tr></table>
+
+<h2>Plot gAnalysis Objects</h2>
+
+
+<h3>Description</h3>
+
+<p>Plots growth curves and analysis in a variety of formats such as single well views with parameters and metainformation, all wells, and svgs.</p>
+
+
+<h3>Usage</h3>
+
+<pre>plot(g.analysis, 1)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>g.analysis.all</code></td>
+<td>
+
+An object of class <code>gAnalysis</code> with the analysis of a set of growth curves to be visualized.
+</td></tr>
+</p>
+<p>
+<tr valign="top"><td><code>well</code></td>
+<td>
+
+The well to display in a single well view (based on the number in the list of gAnalysis) or "all" if want a graph of all curves.
+</td></tr>
+</p>
+<p>
+<tr valign="top"><td><code>name</code></td>
+<td>
+
+A name to save the svg of for an SVG plot.
+</td></tr>
+</p>
+<p>
+<tr valign="top"><td><code>svg</code></td>
+<td>
+
+Logical, indicating whether to output to R or save an SVG plot.
+</td></tr>
+</p>
+<p>
+<tr valign="top"><td><code>graph.log</code></td>
+<td>
+
+Logical, indicating whether to graph on a log axis, where T is for a log axis.
+</td></tr>
+</p>
+<p>
+<tr valign="top"><td><code>control</code></td>
+<td>
+
+An object of class <code>"gControl"</code> providing options for <code>plot.gAnalysis</code>. 
+</td></tr>
+</p>
+<p>
+</table>
+
+
+<h3>Details</h3>
+
+<p>
+This function provides several plot styles for objects of class gAnalysis, most helpfully quick visual summary of a single curve and all serves in a set in an R window.
+</p>
+<p>
+The plots need to be developed along with the the functions. Currently, graph.log doesn't work with SVG, SVG only works with "all" plots.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Goodwin Gibbins</p>
+
+
+<h3>References</h3>
+
+<p>Draws on the Grofit Package, <a href="http://www.jstatsoft.org/v33/i07/paper">http://www.jstatsoft.org/v33/i07/paper</a></p>
+
+
+<h3>See Also</h3>
+
+<p><code>GCAF</code>, <code>gAnalysis</code>, <code>gSlice</code></p>
+
+
+<h3>Examples</h3>
+
+<pre>
+#plot(g.analysis, well=12)
+
+#plot(g.analysis, well="all", graph.log=T)
+
+#plot(g.analysis, well="all", svg=T)
+</pre>
+
+
+</body></html>

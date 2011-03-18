@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>R: Prepares a Pre-Database File</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body>
+
+<table width="100%" summary="page for gPrepareDatabase"><tr><td>gPrepareDatabase</td><td align="right">R Documentation</td></tr></table>
+
+<h2>Prepares a Pre-Database File</h2>
+
+
+<h3>Description</h3>
+
+<p>Prepares a pre-database file with well number, label, date and intials information to be completed by user. See manual.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gPrepareDatabase("FYL", 20080422)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>initials</code></td>
+<td>
+
+The initials of the experimenter, which must match with the initials on the layout file and experiment folder and be consistent with past experiments.
+</td></tr>
+</p>
+<p>
+<tr valign="top"><td><code>date</code></td>
+<td>
+
+The date chosen to represent the experiment, which must match with the date on the layout file and experiment folder.
+</td></tr>
+</p>
+<p>
+<tr valign="top"><td><code>control</code></td>
+<td>
+
+An object of class <code>"gControl"</code> which provides options for <code>gPrepareDatabase</code> such as the root folder of the database.
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>
+This function simplifies adding a database entry to the growth curve database associated with the GCAF package.
+</p>
+<p>
+The layout file and results file (for formatting see documentation) are saved in the <code>control$root.folder</code> location at <code>Database/Layouts/LayoutII########.txt</code> and <code>Database/########II/ResultsII########.txt</code> where <code>II</code> are the initials and <code>#</code> is the date.
+</p>
+<p>
+Running <code>gPrepareDatabase</code> will then create a barebones database file in the folder with the results file which should be edited using Excel or similar.
+</p>
+<p>
+The gPrepareDatabase will not write over existing database files, so delete the original manually if you wish to replace.
+</p>
+
+
+<h3>Value</h3>
+
+<p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>Database</code></td>
+<td>
+A basic database file is saved in the appropriate folder for further editing with a spreadsheet editor (Excel).</td></tr> 
+</table>
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Goodwin Gibbins</p>
+
+
+<h3>References</h3>
+
+<p>Draws on the Grofit Package, <a href="http://www.jstatsoft.org/v33/i07/paper">http://www.jstatsoft.org/v33/i07/paper</a></p>
+
+
+<h3>See Also</h3>
+
+<p>GCAF, gAnalysis</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+# After having created the layout file and experiment folder in the appropriate locations (see documentation):
+gPrepareDatabase(initials="ST", date=20090511)
+
+#Then open the database file and complete information using Excel or a similar spreadsheet editor.
+</pre>
+
+
+</body></html>

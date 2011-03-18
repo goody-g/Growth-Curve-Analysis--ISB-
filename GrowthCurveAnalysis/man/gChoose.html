@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>R: Choose Matching Growth Curves by Meta-information</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body>
+
+<table width="100%" summary="page for gChoose"><tr><td>gChoose</td><td align="right">R Documentation</td></tr></table>
+
+<h2>Choose Matching Growth Curves by Meta-information</h2>
+
+
+<h3>Description</h3>
+
+<p>Finds the <code>Date, Initials, Well.Number</code> coordinates for every growth curve with metainformation matching the user input.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gChoose(matches, not.matches, control=gControl())</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>matches</code></td>
+<td>
+
+A named list with vectors of matches for each attribute, named per the database columns. Vectors with multiple elements are treated as "or", as in "gc with temperature 37 or not designated".
+</td></tr>
+</p>
+<p>
+<tr valign="top"><td><code>not.matches</code></td>
+<td>
+
+A named list with vectors describing growth curves to exclude, named per the database columns. Vectors with multiple elements are treated as "nor" as in "growth curves from neither 20080422 nor 20080415".
+</td></tr>
+</p>
+<p>
+<tr valign="top"><td><code>control</code></td>
+<td>
+
+An object of class <code>"gControl"</code> providing options for gChoose.
+</td></tr>
+</p>
+<p>
+</table>
+
+
+<h3>Details</h3>
+
+<p>
+This function is the first step in the GCAF pathway. It finds wells matching user-defined information parameters to be analyzed using gAnalysis. 
+</p>
+<p>
+TODO: The program has some bugs which need to be worked out - it runs into problems with certain matches or not-matches options (see program file). 
+</p>
+
+
+<h3>Value</h3>
+
+<p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>chosen.wells</code></td>
+<td>
+An object containing Initials, Date and Well Number identification for the chosen set of wells to be analyzed by gAnalysis.</td></tr> 
+</table>
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Goodwin Gibbins</p>
+
+
+<h3>References</h3>
+
+<p>Draws on the Grofit Package, <a href="http://www.jstatsoft.org/v33/i07/paper">http://www.jstatsoft.org/v33/i07/paper</a></p>
+
+
+<h3>See Also</h3>
+
+<p>GCAF, gAnalysis</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+#Choose all ura3 wells in CM without any knockouts.
+gChoose(matches = list(Media="CM", Background="ura3", Knockout=NA))
+</pre>
+
+
+</body></html>

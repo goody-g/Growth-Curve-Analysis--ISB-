@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>R: Summarize list("gAnalysis") Results</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body>
+
+<table width="100%" summary="page for gSummary"><tr><td>gSummary</td><td align="right">R Documentation</td></tr></table>
+
+<h2>Summarize list("gAnalysis") Results</h2>
+
+
+<h3>Description</h3>
+
+<p>Provides a rapid summary of the metainformation in a set of wells analyzed by <code>gAnalysis</code> to provide a check for gChoose etc.</p>
+
+
+<h3>Usage</h3>
+
+<pre>gSummary(g.analysis)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>g.analysis</code></td>
+<td>
+
+An object of class <code>"gAnalysis"</code> which contains metainformation and derived parameters for a set of growth curves chosen by <code>gChoose</code>.
+</td></tr>
+</p>
+<p>
+<tr valign="top"><td><code>control</code></td>
+<td>
+
+An object of class <code>"gControl"</code> providing options for <code>gSummary</code>, specifically <code>control$no.display</code> to supress metainformation categories.
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>
+This function should be used as a simple user-check for for the contents of an object returned from <code>gAnalysis</code>, for example to check whether an environmental perterbation was included inadvertantly.
+</p>
+
+
+<h3>Value</h3>
+
+<p>
+<table summary="R valueblock">
+<tr valign="top"><td><code>to.display</code></td>
+<td>
+A list of metainformation categories and attributes with their number of occurences. NAs are supressed.</td></tr> 
+</table>
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Goodwin Gibbins</p>
+
+
+<h3>References</h3>
+
+<p>Draws on the Grofit Package, <a href="http://www.jstatsoft.org/v33/i07/paper">http://www.jstatsoft.org/v33/i07/paper</a></p>
+
+
+<h3>See Also</h3>
+
+<p>GCAF, gAnalysis</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+#gSummary(g.analysis)
+</pre>
+
+
+</body></html>

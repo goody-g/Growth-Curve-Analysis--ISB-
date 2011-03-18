@@ -1,0 +1,153 @@
+\documentclass[11pt]{article}
+ 
+\usepackage[small,compact]{titlesec}
+\usepackage[margin=1in,nohead]{geometry}
+\setlength\parskip{0.1in}
+\setlength\parindent{0in}
+ 
+\usepackage[pdftex]{graphicx}
+\usepackage{mdwlist}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{setspace}
+%\usepackage{dingbat}
+ 
+ %\usepackage[T1]{fontenc}
+ %\usepackage[light,math]{iwona}
+
+\usepackage{times}
+
+\newenvironment{example}
+{\ttfamily \footnotesize >}
+{\normalsize \rmfamily}
+
+\newcommand{\inlex}[1]{\ttfamily\small{#1}\rmfamily}
+
+%\newenvironment{columns}{
+%start matter
+%\begin{list}{}{} %label code, %body code
+%}{
+%end matter
+%}
+
+
+
+
+\begin{document}
+ 
+\begin{center} \LARGE{Explanation of Information and Parameters for GCAF}\small{ - Goodwin Gibbins} \end{center}
+
+%\begin{spacing}{.1}
+ 
+\section{Meta-Information Sections}
+These sections make up the columns in the database information files and the \inlex{\$Info} portion of class \inlex{gAnalysis} objects.
+
+
+\begin{description}
+%\setlength{\labelwidth}{30pt}
+%\setlength{\itemindent}{5pt}
+
+\item[Initials] The initials of the experimenter. Part of the unique identification of a growth curve.
+\begin{list}{-}{}
+\item FYL - Fang Yin Lo
+\item ST - Serdar Turkarslan
+\item LP - Lee Pang
+\item	KB - Karlyn Beer
+\end{list}
+
+\item[Date] The date the experiment was carried out or a consecutive day if multiple experiments occured at the same time. Part of the unique identification of a growth curve.
+\begin{list}{-}{}
+\item YYYYMMDD - for example, April 15, 2010 would be 20100415
+\end{list}
+
+\item[Well.Number] The well number for a bioscreen experiment, matching the well number on the results file and extracted from the labels file. Part of the unique identification of a growth curve.
+
+\item[Well.Name] The label-file entry for a given well number, to be translated to fill in columns of information file.
+
+\item[Media] A description of the media use.
+\begin{list}{-}{}
+\item CM - complete media
+\item CDM - 
+\item NA - no media in well
+\item More...
+\end{list}
+
+
+\item[Background] The strain of bacteria used for the experiment.
+\begin{list}{-}{}
+\item NRC-1 - wild type
+\item ura3 - d-ura3, means bacteria were grown with uracil
+\item NA - no bacteria in well
+\end{list}
+
+\item[Knockout] A gene or list of genes removed. Multiple knockouts separated by \& (need to develop search method for this). Naming is based on the ORF Name from the annotated genome search on the Baliga lab website.
+\begin{list}{-}{}
+\item more....
+\item NA - no knockout
+\end{list}
+
+\item[Overexpression] A gene or list of genes overexpressed. Multiple knockouts separated by \& (need to develop search method for this). Naming is based on the ORF Name from the annotated genome search on the Baliga lab website.
+\begin{list}{-}{}
+\item more....
+\item NA - no overexpression
+\end{list}
+
+\item[Biological.Replicate] The number of a biological replicate
+\begin{list}{-}{}
+\item NA - not listed or only one biological replicate.
+\end{list}
+
+\item[Temp] The temperature the experiment is run at.
+\begin{list}{-}{}
+\item NA - unspecified - probably 37$^\circ$.
+\end{list}
+
+\item[pH] The pH of the media.
+\begin{list}{-}{}
+\item NA - unspecified/unperterbed.
+\end{list}
+
+\item[Culture.OD] the OD of the culture before dilution for growth curve run.
+\begin{list}{-}{}
+\item NA - not recorded
+\end{list}
+
+\item[NaCl.Concentration] The molarity of salt in the media. 
+\begin{list}{-}{}
+\item NA - XX M
+\end{list}
+
+\item[XX.Concentration] The Cu$^{2+}$ (Cu2p), Fe, Mn, Ni, Co, or Zn concentration in mM.
+\begin{list}{-}{}
+\item NA - no metal.
+\end{list}
+
+%http://baliga.systemsbiology.net/drupal/content/halobacterium-nrc1
+\end{description}
+
+
+\section{Parameters}
+The parameters are based on mathematical algorithms which can be found in the \inlex{gSplineFit.r} or \inlex{gFitXXX.r} functions. 
+
+\begin{description}
+\item[A] - the maximum growth (often just the final recorded growth since maximum not acheived.)
+\item[time.A] - the time which A occurs at.
+\item[mu] - the maximum growth rate (sometimes of first hump, sometimes second. Based on derivative of spline fit)
+\item[time.mu] - the time which the maximum growth rate occurs.
+\item[y.mu] - the cell density at the maximum growth rate.
+\item[lambda] - the lag time - the intercept of the maximum growth rate with the spline initial growth level. (Subject to errors capturing the wrong maximum growth rate).
+\item[integral] - the area under the growth curve.
+\item[initial.od] - the initial cell density, extrapolated from the spline fit to avoid noise.
+\item[time.max] - the length of the experiment.
+\item[trajectory] - the slope at the end of the curve (more positive would mean that the actual A was much higher than the measured A)
+\item[max.secderiv] - the maximum of the spline-interpolated second derivative.
+\item[max.secderiv.time] - time at which the maximum pf the second derivative occurs.
+\item[max.secderiv.index] - index location of the maximum of the second derivative.
+\end{description}
+
+
+%\end{spacing}
+\end{document}
+ 
+ 
